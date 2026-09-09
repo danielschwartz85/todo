@@ -1,5 +1,5 @@
 // Dev version stamp — updated on every code change (format: YYYY-MM-DD HH:MM)
-const APP_VERSION = '2026-07-29 19:01 UTC';
+const APP_VERSION = '2026-09-09 09:33 UTC';
 
 let apiKey = localStorage.getItem('airtable-token');
 let baseId = localStorage.getItem('airtable-baseId');
@@ -2188,8 +2188,10 @@ class TaskManager {
 
     const ThemeManager = {
         STORAGE_KEY: 'theme',
+        THEMES: ['dark', 'slate', 'light', 'paper'],
         DARK_FAVICON_FILL: '%231a1a1a',
         LIGHT_FAVICON_FILL: '%23f0f0f0',
+        SLATE_FAVICON_FILL: '%231e2126',
 
         init() {
             const btn = document.getElementById('theme-toggle-btn');
@@ -2213,7 +2215,8 @@ class TaskManager {
         },
 
         toggle() {
-            const next = this.current === 'dark' ? 'light' : 'dark';
+            const idx = this.THEMES.indexOf(this.current);
+            const next = this.THEMES[(idx + 1) % this.THEMES.length];
             localStorage.setItem(this.STORAGE_KEY, next);
             this.apply(next);
         },
@@ -2228,21 +2231,23 @@ class TaskManager {
         updateBanner(theme) {
             const img = document.querySelector('.hero-logo');
             if (img) {
-                img.src = theme === 'light' ? 'banners/sunday-light.png' : 'banners/dark-sunday.png';
+                img.src = (theme === 'light' || theme === 'paper') ? 'banners/sunday-light.png' : 'banners/dark-sunday.png';
             }
         },
 
         updateFavicon(theme) {
             const link = document.querySelector('link[rel="icon"]');
             if (!link) return;
-            const fill = theme === 'light' ? this.LIGHT_FAVICON_FILL : this.DARK_FAVICON_FILL;
+            let fill = this.DARK_FAVICON_FILL;
+            if (theme === 'light' || theme === 'paper') fill = this.LIGHT_FAVICON_FILL;
+            else if (theme === 'slate') fill = this.SLATE_FAVICON_FILL;
             link.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='${fill}'/%3E%3Cpath d='M16 44 L24 16' stroke='%23ff4d4d' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M26 44 L34 16' stroke='%23ffb830' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M36 44 L44 16' stroke='%2300c2cb' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E`;
         },
 
         updateHighlightTheme(theme) {
             const link = document.getElementById('hljs-theme');
             if (!link) return;
-            const href = theme === 'light'
+            const href = (theme === 'light' || theme === 'paper')
                 ? 'vendor/highlightjs/github.min.css'
                 : 'vendor/highlightjs/base16-dracula.min.css';
             if (link.getAttribute('href') !== href) link.setAttribute('href', href);
