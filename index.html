@@ -18,7 +18,7 @@
         (function() {
             var saved = localStorage.getItem('theme');
             var theme;
-            if (saved === 'light' || saved === 'dark') {
+            if (saved === 'light' || saved === 'dark' || saved === 'slate' || saved === 'paper') {
                 theme = saved;
             } else {
                 theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
@@ -65,7 +65,7 @@
 
         <div class="bottom-actions">
             <button id="show-deleted-tasks" class="show-deleted-btn">Show Completed</button>
-            <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle theme"><span class="theme-icon-light">☀️</span><span class="theme-icon-dark">🌙</span></button>
+            <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle theme"><span class="theme-icon-light">☀️</span><span class="theme-icon-dark">🌙</span><span class="theme-icon-slate">◑</span><span class="theme-icon-paper">◐</span></button>
             <span id="sync-btn-wrapper"><button id="sync-btn" class="sync-btn" title="Sync with Airtable (Ctrl + Alt + S)">⇅</button></span>
         </div>
 

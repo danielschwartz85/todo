@@ -3,7 +3,6 @@
   A minimal, offline-capable task manager. No build step, no dependencies — just open `index.html`.
   
   **[Live Demo](https://danielschwartz85.github.io/sunday)**
-  
   ## Quick Start
   
   ```bash
