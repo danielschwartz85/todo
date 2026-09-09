@@ -3,8 +3,8 @@
   "short_name": "Sunday",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#1a1a1a",
-  "theme_color": "#ff4d4d",
+  "background_color": "#1e2126",
+  "theme_color": "#5b7a9d",
   "description": "A simple offline-capable sunday app.",
   "icons": []
 }
